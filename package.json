@@ -1,0 +1,12 @@
+{
+  "name": "@quantum-sec/package-azure-active-directory",
+  "version": "0.0.0-development",
+  "private": true,
+  "description": "Contains modules for deploying and managing Azure Active Directory resources.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:quantum-sec/package-azure-active-directory.git"
+  },
+  "author": "Quantum Security Pte. Ltd.",
+  "license": "SEE LICENSE IN LICENSE"
+}
