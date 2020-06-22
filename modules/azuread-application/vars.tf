@@ -76,11 +76,11 @@ variable "oauth2_permissions" {
 }
 
 variable "password" {
-  description = "The password for this service principal."
+  description = "The application password (client secret) used to authenticate the application for token requests."
   type        = string
 }
 
-variable "end_date_relative" {
+variable "password_end_date_relative" {
   description = "A relative duration for which the password is valid until."
   type        = string
   default     = "17520h"
