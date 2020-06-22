@@ -74,3 +74,20 @@ variable "oauth2_permissions" {
   }))
   default = []
 }
+
+variable "password" {
+  description = "The password for this service principal."
+  type        = string
+}
+
+variable "end_date_relative" {
+  description = "A relative duration for which the password is valid until."
+  type        = string
+  default     = "17520h"
+}
+
+variable "password_description" {
+  description = "A description for the application password. Note that this maps to the `CustomKeyIdentifier` property of the `PasswordCredentials` API resource."
+  type        = string
+  default     = "rbac"
+}

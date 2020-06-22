@@ -33,3 +33,10 @@ resource "azuread_application" "app" {
     }
   }
 }
+
+resource "azuread_application_password" "password" {
+  application_object_id = azuread_application.app.object_id
+  description           = var.password_description
+  value                 = var.password
+  end_date_relative     = var.end_date_relative
+}
