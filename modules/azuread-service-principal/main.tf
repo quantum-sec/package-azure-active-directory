@@ -16,4 +16,5 @@ resource "azuread_service_principal_password" "password" {
 
   service_principal_id = azuread_service_principal.service_principal.id
   value                = var.password
+  end_date_relative    = var.end_date_relative
 }

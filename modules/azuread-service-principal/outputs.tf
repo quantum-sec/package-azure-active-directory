@@ -22,3 +22,8 @@ output "oauth2_permissions" {
   description = "A collection of OAuth 2.0 permissions exposed by the associated application."
   value       = azuread_service_principal.service_principal.oauth2_permissions
 }
+
+output "password_key_id" {
+  description = "The key ID for the service principal password."
+  value       = azuread_service_principal_password.password.id
+}
