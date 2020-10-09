@@ -1,9 +1,12 @@
 trigger:
+  batch: true
   branches:
     include:
       - master
       - feature/*
       - fix/*
+
+pr: none
 
 resources:
   repositories:
