@@ -36,7 +36,7 @@ resource "azuread_application" "app" {
 
 resource "azuread_application_password" "password" {
   application_object_id = azuread_application.app.object_id
-  description           = var.password_description
+  description           = var.credential_description
   value                 = var.password
-  end_date_relative     = var.password_end_date_relative
+  end_date_relative     = var.credential_relative_end_date
 }
