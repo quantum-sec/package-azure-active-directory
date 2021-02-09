@@ -4,10 +4,17 @@
 
 terraform {
   required_version = ">= 0.12"
+
+  required_providers {
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 1.3"
+    }
+  }
 }
 
 resource "azuread_application" "app" {
-  name                       = var.name
+  display_name               = var.name
   homepage                   = var.homepage
   identifier_uris            = var.identifier_uris
   reply_urls                 = var.reply_urls
@@ -35,6 +42,8 @@ resource "azuread_application" "app" {
 }
 
 resource "azuread_application_password" "password" {
+  count = var.password == null ? 0 : 1
+
   application_object_id = azuread_application.app.object_id
   description           = var.credential_description
   value                 = var.password

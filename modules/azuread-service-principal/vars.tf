@@ -17,4 +17,5 @@ variable "password" {
 variable "end_date_relative" {
   description = "A relative duration for which the password is valid until."
   type        = string
+  default     = "17520h" # 2 years
 }

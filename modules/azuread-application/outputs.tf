@@ -10,5 +10,5 @@ output "object_id" {
 
 output "password_key_id" {
   description = "The key ID for the service principal password."
-  value       = azuread_application_password.password.id
+  value       = var.password != null ? azuread_application_password.password[0].id : null
 }

@@ -4,6 +4,23 @@
 
 terraform {
   required_version = ">= 0.12"
+
+  required_providers {
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 1.3"
+    }
+
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
+  }
+}
+
+resource "random_password" "service_principal_password" {
+  length  = 32
+  special = true
 }
 
 resource "azuread_service_principal" "service_principal" {
@@ -15,6 +32,6 @@ resource "azuread_service_principal_password" "password" {
   depends_on = [azuread_service_principal.service_principal]
 
   service_principal_id = azuread_service_principal.service_principal.id
-  value                = var.password
+  value                = var.password != null ? var.password : random_password.service_principal_password.result
   end_date_relative    = var.end_date_relative
 }

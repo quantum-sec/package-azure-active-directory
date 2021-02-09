@@ -48,17 +48,19 @@ variable "oauth2_allow_implicit_flow" {
 variable "group_membership_claims" {
   description = "Configures the `groups` claim issued in a user or OAuth 2.0 access token that the app expects. One of `None`, `SecurityGroup`, `DirectoryRole`, `ApplicationGroup`, or `All`."
   type        = string
-  default     = "SecurityGroup"
+  default     = null
 }
 
 variable "owners" {
   description = "A set of Azure AD object IDs that will be granted ownership of the application."
   type        = set(string)
+  default     = null
 }
 
 variable "type" {
   description = "The type of the application. One of `webapp/api` or `native`."
   type        = string
+  default     = null
 }
 
 variable "oauth2_permissions" {
@@ -78,12 +80,13 @@ variable "oauth2_permissions" {
 variable "password" {
   description = "The application password (client secret) used to authenticate the application for token requests."
   type        = string
+  default     = null
 }
 
 variable "credential_relative_end_date" {
   description = "A relative duration for which the password is valid until."
   type        = string
-  default     = "17520h"
+  default     = "17520h" # 2 years
 }
 
 variable "credential_description" {
