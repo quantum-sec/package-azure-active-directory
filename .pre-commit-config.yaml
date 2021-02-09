@@ -19,7 +19,6 @@ repos:
     rev: v1.37.0
     hooks:
       - id: terraform_fmt
-      - id: terraform_tflint
       - id: terraform_tfsec
   - repo: https://github.com/quantum-sec/pre-commit
     rev: 1.0.0

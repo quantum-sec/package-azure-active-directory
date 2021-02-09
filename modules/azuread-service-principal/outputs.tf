@@ -27,3 +27,9 @@ output "password_key_id" {
   description = "The key ID for the service principal password."
   value       = azuread_service_principal_password.password.id
 }
+
+output "password" {
+  description = "The randomly generated password for this service principal."
+  value       = var.password == null ? random_password.service_principal_password.result : null
+  sensitive   = true
+}

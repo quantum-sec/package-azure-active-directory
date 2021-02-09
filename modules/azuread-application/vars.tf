@@ -81,6 +81,7 @@ variable "password" {
   description = "The application password (client secret) used to authenticate the application for token requests."
   type        = string
   default     = null
+  sensitive   = true
 }
 
 variable "credential_relative_end_date" {
