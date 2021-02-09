@@ -1,6 +1,7 @@
 variable "name" {
   description = "The display name for the application."
   type        = string
+  default     = "test-azuread-application"
 }
 
 variable "homepage" {

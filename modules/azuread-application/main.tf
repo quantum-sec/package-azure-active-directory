@@ -24,7 +24,6 @@ resource "azuread_application" "app" {
   oauth2_allow_implicit_flow = var.oauth2_allow_implicit_flow
   group_membership_claims    = var.group_membership_claims
   owners                     = var.owners
-  type                       = var.type
 
   dynamic "oauth2_permissions" {
     for_each = var.oauth2_permissions
@@ -39,13 +38,4 @@ resource "azuread_application" "app" {
       user_consent_display_name  = oauth2_permissions.value.user_consent_display_name
     }
   }
-}
-
-resource "azuread_application_password" "password" {
-  count = var.password == null ? 0 : 1
-
-  application_object_id = azuread_application.app.object_id
-  description           = var.credential_description
-  value                 = var.password
-  end_date_relative     = var.credential_relative_end_date
 }
