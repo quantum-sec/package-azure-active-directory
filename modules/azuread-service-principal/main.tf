@@ -19,8 +19,9 @@ terraform {
 }
 
 resource "random_password" "service_principal_password" {
-  length  = 32
-  special = true
+  length           = 32
+  special          = true
+  override_special = "._"
 }
 
 resource "azuread_service_principal" "service_principal" {
