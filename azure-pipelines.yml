@@ -26,4 +26,4 @@ jobs:
             displayName: Update Infrastructure Modules
             srcRepository: package-azure-active-directory.git
             dstRepository: infrastructure-modules
-            condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['Build.Reason'], 'PullRequest')))
+            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
