@@ -19,3 +19,11 @@ jobs:
   - template: templates/jobs/default.yml@pipeline-library
     parameters:
       containerImage: quantumci.azurecr.io/quantum-ci-terragrunt:latest
+      deploySteps:
+        - template: templates/steps/versioning/update-source-reference.yml@pipeline-library
+          parameters:
+            name: UpdateInfrastructureModules
+            displayName: Update Infrastructure Modules
+            packageName: package-azure-active-directory
+            repository: infrastructure-modules
+            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
