@@ -9,13 +9,6 @@ variable "app_role_assignment_required" {
   default     = false
 }
 
-variable "password" {
-  description = "The password for this service principal. If this is omitted, a random password will be generated."
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
 variable "end_date_relative" {
   description = "A relative duration for which the password is valid until."
   type        = string
