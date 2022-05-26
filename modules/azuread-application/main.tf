@@ -17,7 +17,7 @@ resource "azuread_application" "app" {
   display_name    = var.display_name
   identifier_uris = var.identifier_uris
 
-  group_membership_claims = var.group_membership_claims == null ? [] : [var.group_membership_claims]
+  group_membership_claims = var.group_membership_claims
   owners                  = var.owners
 
   sign_in_audience               = var.sign_in_audience

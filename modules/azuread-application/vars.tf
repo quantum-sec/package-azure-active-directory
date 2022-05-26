@@ -56,8 +56,12 @@ variable "oauth2_implicit_flow_allow_access_token" {
 
 variable "group_membership_claims" {
   description = "Configures the `groups` claim issued in a user or OAuth 2.0 access token that the app expects. One of `None`, `SecurityGroup`, `DirectoryRole`, `ApplicationGroup`, or `All`."
-  type        = string
-  default     = null
+  type        = set(string)
+  validation {
+    condition     = can([for c in var.group_membership_claims : contains(["None", "SecurityGroup", "DirectoryRole", "ApplicationGroup", "All"], c)])
+    error_message = "Allowed values for input_parameter are \"None\", \"SecurityGroup\", \"DirectoryRole\", \"ApplicationGroup\" or \"All\"."
+  }
+  default = []
 }
 
 variable "owners" {
