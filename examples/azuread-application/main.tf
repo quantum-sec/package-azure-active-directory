@@ -11,7 +11,7 @@ terraform {
 module "azuread_application" {
   source = "../../modules/azuread-application"
 
-  display_name                            = var.name
+  display_name                            = var.display_name
   homepage_url                            = var.homepage_url
   identifier_uris                         = var.identifier_uris
   redirect_uris                           = var.redirect_uris
