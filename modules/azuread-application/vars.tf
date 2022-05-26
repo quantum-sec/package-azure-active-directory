@@ -1,4 +1,4 @@
-variable "name" {
+variable "display_name" {
   description = "The display name for the application."
   type        = string
 }

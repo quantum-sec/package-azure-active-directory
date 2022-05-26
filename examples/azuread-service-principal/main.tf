@@ -9,8 +9,8 @@ terraform {
 }
 
 module "azuread_app" {
-  source = "../../modules/azuread-application"
-  name   = "exampleadapplication"
+  source       = "../../modules/azuread-application"
+  display_name = "exampleadapplication"
 }
 
 module "azuread-service-principal" {
