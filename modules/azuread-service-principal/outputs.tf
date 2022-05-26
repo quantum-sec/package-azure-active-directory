@@ -25,7 +25,7 @@ output "password_key_id" {
 }
 
 output "password" {
-  description = "The randomly generated password for this service principal."
+  description = "The randomly generated password by Azure Active Directory for this service principal."
   value       = azuread_service_principal_password.password.value
   sensitive   = true
 }
