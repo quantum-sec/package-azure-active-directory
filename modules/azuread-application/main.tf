@@ -10,7 +10,15 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 2.22"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.2"
+    }
   }
+}
+
+resource "random_uuid" "oauth2_permission_scope_id" {
+  for_each = var.oauth2_permission_scopes
 }
 
 resource "azuread_application" "app" {
@@ -45,7 +53,7 @@ resource "azuread_application" "app" {
         enabled                    = oauth2_permission_scope.value.enabled
         user_consent_description   = oauth2_permission_scope.value.user_consent_description
         user_consent_display_name  = oauth2_permission_scope.value.user_consent_display_name
-        id                         = uuid()
+        id                         = random_uuid.oauth2_permission_scope_id[oauth2_permission_scope.key].result
       }
     }
   }

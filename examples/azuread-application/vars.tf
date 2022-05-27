@@ -60,7 +60,7 @@ variable "owners" {
 
 variable "oauth2_permission_scopes" {
   description = "A set of OAuth 2.0 permission scopes granted to clients."
-  type = set(object({
+  type = map(object({
     admin_consent_description  = string
     admin_consent_display_name = string
     value                      = string
@@ -69,5 +69,15 @@ variable "oauth2_permission_scopes" {
     user_consent_description   = string
     user_consent_display_name  = string
   }))
-  default = []
+  default = {
+    scope1 = {
+      admin_consent_description  = "Allow the application to access example on behalf of the signed-in user"
+      admin_consent_display_name = "Access example"
+      value                      = "user_impersonation"
+      type                       = "User"
+      enabled                    = true
+      user_consent_description   = "Allow the application to access example on your behalf."
+      user_consent_display_name  = "Access example"
+    }
+  }
 }
