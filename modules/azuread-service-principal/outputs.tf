@@ -18,18 +18,14 @@ output "app_role_assignment_required" {
   value       = azuread_service_principal.service_principal.app_role_assignment_required
 }
 
-output "oauth2_permissions" {
-  description = "A collection of OAuth 2.0 permissions exposed by the associated application."
-  value       = azuread_service_principal.service_principal.oauth2_permissions
-}
 
 output "password_key_id" {
   description = "The key ID for the service principal password."
-  value       = azuread_service_principal_password.password.id
+  value       = azuread_service_principal_password.password.key_id
 }
 
 output "password" {
-  description = "The randomly generated password for this service principal."
-  value       = var.password == null ? random_password.service_principal_password.result : null
+  description = "The randomly generated password by Azure Active Directory for this service principal."
+  value       = azuread_service_principal_password.password.value
   sensitive   = true
 }

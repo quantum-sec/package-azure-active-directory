@@ -8,34 +8,53 @@ terraform {
   required_providers {
     azuread = {
       source  = "hashicorp/azuread"
-      version = "~> 1.3"
+      version = "~> 2.22"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.2"
     }
   }
 }
 
+resource "random_uuid" "oauth2_permission_scope_id" {
+  for_each = var.oauth2_permission_scopes
+}
+
 resource "azuread_application" "app" {
-  display_name               = var.name
-  homepage                   = var.homepage
-  identifier_uris            = var.identifier_uris
-  reply_urls                 = var.reply_urls
-  logout_url                 = var.logout_url
-  available_to_other_tenants = var.available_to_other_tenants
-  public_client              = var.public_client
-  oauth2_allow_implicit_flow = var.oauth2_allow_implicit_flow
-  group_membership_claims    = var.group_membership_claims
-  owners                     = var.owners
+  display_name    = var.display_name
+  identifier_uris = var.identifier_uris
 
-  dynamic "oauth2_permissions" {
-    for_each = var.oauth2_permissions
+  group_membership_claims = var.group_membership_claims
+  owners                  = var.owners
 
-    content {
-      admin_consent_description  = oauth2_permissions.value.admin_consent_description
-      admin_consent_display_name = oauth2_permissions.value.admin_consent_display_name
-      value                      = oauth2_permissions.value.value
-      type                       = oauth2_permissions.value.type
-      is_enabled                 = oauth2_permissions.value.is_enabled
-      user_consent_description   = oauth2_permissions.value.user_consent_description
-      user_consent_display_name  = oauth2_permissions.value.user_consent_display_name
+  sign_in_audience               = var.sign_in_audience
+  fallback_public_client_enabled = var.fallback_public_client_enabled
+
+  web {
+    homepage_url  = var.homepage_url
+    logout_url    = var.logout_url
+    redirect_uris = var.redirect_uris
+
+    implicit_grant {
+      access_token_issuance_enabled = var.oauth2_implicit_flow_allow_access_token
+    }
+  }
+
+  api {
+    dynamic "oauth2_permission_scope" {
+      for_each = var.oauth2_permission_scopes
+
+      content {
+        admin_consent_description  = oauth2_permission_scope.value.admin_consent_description
+        admin_consent_display_name = oauth2_permission_scope.value.admin_consent_display_name
+        value                      = oauth2_permission_scope.value.value
+        type                       = oauth2_permission_scope.value.type
+        enabled                    = oauth2_permission_scope.value.enabled
+        user_consent_description   = oauth2_permission_scope.value.user_consent_description
+        user_consent_display_name  = oauth2_permission_scope.value.user_consent_display_name
+        id                         = random_uuid.oauth2_permission_scope_id[oauth2_permission_scope.key].result
+      }
     }
   }
 }

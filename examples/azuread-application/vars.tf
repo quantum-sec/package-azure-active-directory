@@ -1,10 +1,10 @@
-variable "name" {
+variable "display_name" {
   description = "The display name for the application."
   type        = string
   default     = "test-azuread-application"
 }
 
-variable "homepage" {
+variable "homepage_url" {
   description = "The URL to the application's home page. If no homepage is specified this defaults to `https://{name}`."
   type        = string
   default     = null
@@ -16,7 +16,7 @@ variable "identifier_uris" {
   default     = []
 }
 
-variable "reply_urls" {
+variable "redirect_uris" {
   description = "A set of URLs that user tokens are sent to for sign in, or the redirect URIs that OAuth 2.0 authorization codes and access tokens are sent to."
   type        = set(string)
   default     = []
@@ -28,19 +28,19 @@ variable "logout_url" {
   default     = null
 }
 
-variable "available_to_other_tenants" {
+variable "sign_in_audience" {
   description = "Whether or not this Azure AD application is available to other tenants."
-  type        = bool
-  default     = false
+  type        = string
+  default     = "AzureADMyOrg"
 }
 
-variable "public_client" {
+variable "fallback_public_client_enabled" {
   description = "Whether or not this Azure AD application is a public client."
   type        = bool
   default     = false
 }
 
-variable "oauth2_allow_implicit_flow" {
+variable "oauth2_implicit_flow_allow_access_token" {
   description = "Whether or not the OAuth 2.0 implicit flow is allowed for this application."
   type        = bool
   default     = false
@@ -48,8 +48,8 @@ variable "oauth2_allow_implicit_flow" {
 
 variable "group_membership_claims" {
   description = "Configures the `groups` claim issued in a user or OAuth 2.0 access token that the app expects. One of `None`, `SecurityGroup`, `DirectoryRole`, `ApplicationGroup`, or `All`."
-  type        = string
-  default     = null
+  type        = set(string)
+  default     = []
 }
 
 variable "owners" {
@@ -58,16 +58,26 @@ variable "owners" {
   default     = null
 }
 
-variable "oauth2_permissions" {
+variable "oauth2_permission_scopes" {
   description = "A set of OAuth 2.0 permission scopes granted to clients."
-  type = set(object({
+  type = map(object({
     admin_consent_description  = string
     admin_consent_display_name = string
     value                      = string
     type                       = string
-    is_enabled                 = bool
+    enabled                    = bool
     user_consent_description   = string
     user_consent_display_name  = string
   }))
-  default = []
+  default = {
+    scope1 = {
+      admin_consent_description  = "Allow the application to access example on behalf of the signed-in user"
+      admin_consent_display_name = "Access example"
+      value                      = "user_impersonation"
+      type                       = "User"
+      enabled                    = true
+      user_consent_description   = "Allow the application to access example on your behalf."
+      user_consent_display_name  = "Access example"
+    }
+  }
 }
